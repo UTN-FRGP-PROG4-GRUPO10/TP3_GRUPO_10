@@ -12,41 +12,62 @@ public class Principal {
 	
 		public static void main(String[] args) {
 			DaoProducto productoDao = new DaoProducto();
-//			DaoCategoria categoriaDao = new DaoCategoria();
-//			
-//			Categoria categoria1 = new Categoria();
-//			categoria1.setNombre("lacteos");
-//			int filas = categoriaDao.agregarCategoria(categoria1);
+			DaoCategoria categoriaDao = new DaoCategoria();
 			
+			//AGREGAR CATEGORÍA
+			Categoria categoria1 = new Categoria();
+			categoria1.setNombre("lacteos");
+			int filasCategorias = categoriaDao.agregarCategoria(categoria1);
+			
+			if(filasCategorias == 1)
+				System.out.println("Categoria agregada");
+			else
+				System.out.println("Categoria no agregada");
+			
+			
+			//AGREGAR PRODUCTO
+			Producto producto1 = new Producto();
+			producto1.setCodigo("1");
+			producto1.setNombre("leche");
+			producto1.setPrecio(3000);
+			producto1.setStock(10);
+			producto1.setIdCategoria(1);
+			
+			int filasAgregadas = productoDao.agregarProducto(producto1);
+			if(filasAgregadas == 1)
+				System.out.println("Producto agregado");
+			else
+				System.out.println("Producto no agregado");
+			
+			//OBTENER PRODUCTO
 			Producto producto = productoDao.obtenerProducto("1");
 			System.out.println(producto.toString());
 			
+			//MODIFICAR PRODUCTO
+			producto.setNombre("Leche");
+			producto.setPrecio(12999.99);
+			producto.setStock(15);
+			
+			int filasModificadas = productoDao.modificarProducto(producto);
+			if(filasModificadas == 1)
+				System.out.println("Producto " + producto.getCodigo() + " modificado.");
+			else
+				System.out.println("No se pudo modificar el producto.");
+			
+			//OBTENER TODOS LOS PRODUCTOS
 			ArrayList<Producto> productos = productoDao.obtenerTodosLosProductos();
 			System.out.println("LISTADO DE PRODUCTOS:");
 			for (Producto p : productos) {
 				System.out.println(p.toString());
 			}
 			
+			//ELIMINAR PRODUCTO
+			int filasEliminadas = productoDao.eliminarProducto("1");
+			if(filasEliminadas == 1)
+				System.out.println("Producto eliminado.");
+			else
+				System.out.println("No se pudo eliminar el producto.");
 			
-//			
-//			if(filas==1)
-//					System.out.println("Categoria agregada");
-//			else
-//				System.out.println("Categoria no agregada");
-//			
-//			
-//			Producto producto1 = new Producto();
-//			producto1.setCodigo("1");
-//			producto1.setNombre("leche");
-//			producto1.setPrecio(3000);
-//			producto1.setStock(10);
-//			producto1.setIdCategoria(1);
-//			
-//			filas = productoDao.agregarProducto(producto1);
-//			
-//			if(filas==1)
-//					System.out.println("Producto agregado");
-//			else
-//				System.out.println("Producto no agregado");
+			
 		}
 }

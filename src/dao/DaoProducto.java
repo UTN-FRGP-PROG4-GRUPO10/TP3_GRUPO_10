@@ -60,6 +60,31 @@ public class DaoProducto {
 		return filas;
 	}
 	
+	public int modificarProducto(Producto producto) {
+		
+		String query = "UPDATE productos SET Nombre = ?, Precio = ?, Stock = ?, IdCategoria = ? WHERE Codigo = ?";
+		Connection cn = null;
+		int filas = 0;
+		
+		try {
+			
+			cn = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement pst = cn.prepareStatement(query);
+			pst.setString(1, producto.getNombre());
+			pst.setDouble(2, producto.getPrecio());
+			pst.setInt(3, producto.getStock());
+			pst.setInt(4, producto.getIdCategoria());
+			pst.setString(5, producto.getCodigo());
+			
+			filas = pst.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+	
 	public Producto obtenerProducto(String codigo) {
 		
 		Producto producto = new Producto();
