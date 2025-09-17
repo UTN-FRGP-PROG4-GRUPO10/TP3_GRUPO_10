@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -33,6 +34,26 @@ public class DaoProducto {
 			filas = st.executeUpdate(query);
 			
 		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+	
+	public int eliminarProducto(String codigo) {
+		
+		String query = "DELETE FROM productos WHERE Codigo = ?";
+		Connection cn = null;
+		int filas = 0;
+		
+		try {
+			
+			cn = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement pst = cn.prepareStatement(query);
+			pst.setString(1, codigo);
+			filas = pst.executeUpdate();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
