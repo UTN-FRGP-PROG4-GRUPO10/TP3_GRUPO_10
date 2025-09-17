@@ -14,7 +14,7 @@ public class Principal {
 			DaoProducto productoDao = new DaoProducto();
 			DaoCategoria categoriaDao = new DaoCategoria();
 			
-			//AGREGAR CATEGOR√çA
+			//AGREGAR CATEGORÕA
 			Categoria categoria1 = new Categoria();
 			categoria1.setNombre("lacteos");
 			int filasCategorias = categoriaDao.agregarCategoria(categoria1);
