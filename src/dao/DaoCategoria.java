@@ -24,23 +24,37 @@ public class DaoCategoria {
 		
 		public int agregarCategoria(Categoria categoria)
 		{
-			String query = "insert into categorias(nombre) values ('" + categoria.getNombre() + "' )";
+			String query = "INSERT INTO categorias (nombre) VALUES (?)";
 			Connection cn = null;
 			int filas = 0;
+			int idGenerado = -1;
+			
 			try
 			{
 				cn = DriverManager.getConnection(host + dbName,user,pass);
-					Statement st = cn.createStatement();
-					filas = st.executeUpdate(query);
+				PreparedStatement pst = cn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+				
+				pst.setString(1, categoria.getNombre());
+				filas = pst.executeUpdate();
+					
+				if(filas > 0) {
+					ResultSet rs = pst.getGeneratedKeys();
+					if(rs.next()) {
+						idGenerado = rs.getInt(1);
+						categoria.setId(idGenerado);
+					}
+				}
+				
 			}
 			catch(Exception e)
 			{
 				e.printStackTrace();
 			}
-			return filas;
+			
+			return idGenerado;
 		}
 		
-		public int eliminarCategoria(String idCategoria) {
+		public int eliminarCategoria(int idCategoria) {
 			
 			String query = "DELETE FROM categorias WHERE IdCategoria = ?";
 			Connection cn = null;
@@ -50,7 +64,7 @@ public class DaoCategoria {
 				
 				cn = DriverManager.getConnection(host + dbName, user, pass);
 				PreparedStatement pst = cn.prepareStatement(query);
-				pst.setString(1, idCategoria);
+				pst.setInt(1, idCategoria);
 				filas = pst.executeUpdate();
 				
 			} catch (MySQLIntegrityConstraintViolationException e) {
