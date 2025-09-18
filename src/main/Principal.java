@@ -75,5 +75,16 @@ public class Principal {
 			else
 				System.out.println("No se pudo eliminar la categoria.");
 			
+			//OBTENER CATEGORIA
+			Categoria categoria = categoriaDao.obtenerCategoria(1);
+			System.out.println(categoria.toString());
+			
+			//OBTENER TODAS LAS CATEGORIAS
+			ArrayList<Categoria> categorias = categoriaDao.obtenerTodasLasCategorias();
+			System.out.println("LISTADO DE CATEGORIAS:");
+			for (Categoria c : categorias) {
+				System.out.println(c.toString());
+			}
+			
 		}
 }

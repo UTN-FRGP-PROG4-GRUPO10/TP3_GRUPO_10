@@ -97,7 +97,7 @@ public class DaoProducto {
 			String query = "SELECT * FROM productos WHERE Codigo = '" + codigo + "'";
 			ResultSet rs = st.executeQuery(query);
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				producto.setCodigo(codigo);
 				producto.setNombre(rs.getString("Nombre"));	
 				producto.setPrecio(rs.getDouble("Precio"));	
