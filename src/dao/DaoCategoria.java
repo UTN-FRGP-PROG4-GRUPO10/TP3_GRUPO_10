@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import entidad.Categoria;
 
 public class DaoCategoria {
@@ -39,25 +41,6 @@ public class DaoCategoria {
 		
 		public int eliminarCategoria(String idCategoria) {
 			
-			try {
-				String query = "SELECT COUNT(*) FROM productos WHERE idCategoria = ?";
-				Connection cn = null;
-				cn = DriverManager.getConnection(host + dbName, user, pass);
-				PreparedStatement pst = cn.prepareStatement(query);
-				pst.setString(1, idCategoria);
-				
-				ResultSet rs = pst.executeQuery();
-				if (rs.next()) {
-		            int cantidad = rs.getInt(1); 
-		            if (cantidad > 0) {
-		                return 0;
-		            }
-		        }
-
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-			
 			String query = "DELETE FROM categorias WHERE IdCategoria = ?";
 			Connection cn = null;
 			int filas = 0;
@@ -69,6 +52,8 @@ public class DaoCategoria {
 				pst.setString(1, idCategoria);
 				filas = pst.executeUpdate();
 				
+			} catch (MySQLIntegrityConstraintViolationException e) {
+				System.out.println("ERROR: La categoría tiene productos asociados.");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
