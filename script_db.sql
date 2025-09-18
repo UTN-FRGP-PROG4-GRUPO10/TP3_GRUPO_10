@@ -13,7 +13,6 @@ CREATE TABLE `Productos` (
 `IdCategoria` int NOT NULL,
 PRIMARY KEY (`Codigo`),
 FOREIGN KEY (`IdCategoria`) REFERENCES Categorias(`IdCategoria`)
-ON DELETE CASCADE
 );
 DELIMITER $$
 CREATE PROCEDURE sp_AgregarProducto (

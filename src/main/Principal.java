@@ -14,7 +14,7 @@ public class Principal {
 			DaoProducto productoDao = new DaoProducto();
 			DaoCategoria categoriaDao = new DaoCategoria();
 			
-			//AGREGAR CATEGORÍA
+			//AGREGAR CATEGORï¿½A
 			Categoria categoria1 = new Categoria();
 			categoria1.setNombre("lacteos");
 			int filasCategorias = categoriaDao.agregarCategoria(categoria1);
@@ -68,6 +68,12 @@ public class Principal {
 			else
 				System.out.println("No se pudo eliminar el producto.");
 			
+			//ELIMINAR CATEGORIA
+			int filasEliminadasCat = categoriaDao.eliminarCategoria("1");
+			if(filasEliminadasCat == 1)
+				System.out.println("Categoria eliminada.");
+			else
+				System.out.println("No se pudo eliminar la categoria.");
 			
 		}
 }
