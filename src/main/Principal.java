@@ -14,7 +14,7 @@ public class Principal {
 			DaoProducto productoDao = new DaoProducto();
 			DaoCategoria categoriaDao = new DaoCategoria();
 			
-			//AGREGAR CATEGORÍA
+			//AGREGAR CATEGORï¿½A
 			Categoria categoria1 = new Categoria();
 			categoria1.setNombre("lacteos");
 			int filasCategorias = categoriaDao.agregarCategoria(categoria1);
@@ -31,9 +31,9 @@ public class Principal {
 			producto1.setNombre("leche");
 			producto1.setPrecio(3000);
 			producto1.setStock(10);
-			producto1.setIdCategoria(1);
+			producto1.setIdCategoria(categoria1.getId());
 			
-			int filasAgregadas = productoDao.agregarProducto(producto1);
+			int filasAgregadas = productoDao.sp_agregarProducto(producto1);
 			if(filasAgregadas == 1)
 				System.out.println("Producto agregado");
 			else
