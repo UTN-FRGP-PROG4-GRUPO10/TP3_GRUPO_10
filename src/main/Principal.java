@@ -68,6 +68,12 @@ public class Principal {
 			else
 				System.out.println("No se pudo eliminar el producto.");
 			
+			//ELIMINAR CATEGORIA
+			int filasEliminadasCat = categoriaDao.eliminarCategoria("1");
+			if(filasEliminadasCat == 1)
+				System.out.println("Categoria eliminada.");
+			else
+				System.out.println("No se pudo eliminar la categoria.");
 			
 		}
 }
